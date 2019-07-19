@@ -47,8 +47,6 @@
 % University of Gronignen, The Netherlands.
 % {\tt\small \{email1,email2\}@student.rug.nl}}
 % }
-
-% \renewcommand{\abstractname}{}
 \begin{document}
 
 \maketitle
@@ -58,55 +56,38 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-  
   In this paper, automation via robotic arms is explored. A pipeline was developed
-  to allow the Kinova MICO robot arm to grasp box objects from a table.
-  
-  The first step in this process is detecting the position of the box object: This was facilitated through
-  provided code and leveraged the Robot Operating System ecosystem.
-  
-  Next up the angle of the box object was classified: This was performed by
-    creating a data-set of images of boxes in the real-world environment. A
-    classifier was then trained on that data. Various preprocessing techniques and
-    features were compared and contrasted in the development of the final
-    classifier.  The classifier based on the Support Vector Machine learning
-    model.
-    
-  Finally the object was grasped: The grasping data determined via the position
-    detection and the angle classification is used to prepare a grasp which is then
-    communicated to the MICO robot arm through the \textit{MoveIt} framework.
-  
+  to allow the Kinova MICO robot arm to grasp box objects from a table. There
+  are several steps in this process.
+
+  First, the position of the box object was detected. This was facilitated
+  through provided code and leveraged the Robot Operating System ecosystem.
+
+  Next, the angle of the box object was classified. The classifier was based on
+  the Support Vector Machine learning model and was trained on a data-set of
+  images of boxes in the real-world environment. Various preprocessing techniques
+  and features were compared and contrasted in the development of the final
+  classifier.
+
+  Finally, the object was grasped. This was done using the data determined via
+  the position detection and the angle classification. This data was then used to
+  prepare a grasp which was then communicated to the MICO robot arm.
 
   The primary point of research is the comparison of the accuracy of the various
   classification methods. The pipelines for each classifier consisted of a
-  preprocessing step and a feature extraction step. \\
-  
-  % The preprocessing steps which were tested are as follows:
-  % \begin{itemize}
-  % \item Doing nothing to the image.
-  % \item Converting the image to grayscale.
-  % \item Blurring the image.
-  % \item Blurring the grayscale version of the image.
-  % \item Finding the contours of the image.
-  % \item Finding the contours of the grayscale image.
-  % \end{itemize}
+  preprocessing step and a feature extraction step.
 
+  Various preprocessing steps and feature extraction steps were considered. The
+  classification pipelines were tested for the product of the set of preprocessing
+  steps and the set of feature extraction steps, in other words each preprocessing
+  step was tested in conjunct with each feature extraction step. Each classifier
+  was trialed in the simulation and tested on the real-world image data-set.
 
-  % The feature extraction steps which were tested are as follows:
-  % \begin{itemize}
-  % \item Leaving the preprocessed image as is.
-  % \item Extracting HOG (Histogram of Oriented Gradients) features.
-  % \item Extracting SIFT (Scale-Invariant Feature Transform) features.
-  % \end{itemize}
-
-  The classification pipelines were tested for the product of the set of
-  preprocessing steps and the set of feature extraction steps, in other words each
-  preprocessing step was tested in conjunct with each feature extraction step.
-  Each classifier was trialed in the simulation and tested on the real-world image
-  data-set.\\
-
-  The most-accurate classification pipeline was the grayscaled image with Histogram of Oriented Gradients feature extraction. On the simple testing data-set (consisting of single boxes
-  at various angles) this pipeline operated at 88\% accuracy.
+  The most-accurate classification pipeline was the pipeline which consisted of
+  grayscaling the image as the preprocessing step and extracting the histogram of
+  oriented gradients as the feature extraction step. On the testing data-set
+  (consisting of single boxes at various angles) this pipeline operated at 88\%
+  accuracy.
 \end{abstract}
 
 
