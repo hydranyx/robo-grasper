@@ -1,0 +1,6 @@
+ros/catkin_ws/build
+ros/catkin_ws/devel
+*.pyc
+.catkin_workspace
+*.swp
+*.log

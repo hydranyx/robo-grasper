@@ -1,0 +1,240 @@
+{
+	"box": 1,
+	"brand": "Liga",
+	"side_a": 21.5,
+	"side_b": 9.5,
+	"side_c" : 4.7,
+	"main_colours": ["green", "purple", "red", "white"],
+	"graphical_data_image_color": [
+		{
+			"picture_nr": "box1_1",
+			"angle": 0,
+		}
+		{
+			"picture_nr": "box1_2" ,
+			"angle": 30,
+		}
+		{
+			"picture_nr": "box1_3",
+			"angle": 60,
+		}
+		{
+			"picture_nr": "box1_4",
+			"angle": 90,
+		}
+		{
+			"picture_nr": "box1_5",
+			"angle": 120,
+		}
+		{
+			"picture_nr": "box1_6",
+			"angle": 150,
+		}
+		{
+			"picture_nr": "box1_7",
+			"angle": 180,
+		}
+	]
+	"graphical_data_image_depth":[
+			{
+			"picture_nr": 1,
+			"angle": ,
+		}
+	]
+}
+{
+	"box": 2,
+	"brand": "Chenese Tomaten Soup - Jumbo",
+	"side_a": 13.0,
+	"side_b": 9.5,
+	"side_c" : 3.2,
+	"main_colours": ["red", "yellow", "white"],
+	"graphical_data_image_color": [
+		{
+			"picture_nr": "box2_1",
+			"angle": 0,
+		}
+		{
+			"picture_nr": "box2_2" ,
+			"angle": 30,
+		}
+		{
+			"picture_nr": "box2_3",
+			"angle": 60,
+		}
+		{
+			"picture_nr": "box2_4",
+			"angle": 90,
+		}
+		{
+			"picture_nr": "box2_5",
+			"angle": 120,
+		}
+		{
+			"picture_nr": "box2_6",
+			"angle": 150,
+		}
+		{
+			"picture_nr": "box2_7",
+			"angle": 180,
+		}
+	]
+	
+}
+{
+	"box": 3,
+	"brand": "Conrad",
+	"side_a": 13.4,
+	"side_b": 7.5,
+	"side_c" : 7.0,
+	"main_colours": ["white", "blue", "black"],
+	"graphical_data_image_color": [
+		{
+			"picture_nr": "box3_1",
+			"angle": 0,
+		}
+		{
+			"picture_nr": "box3_2" ,
+			"angle": 30,
+		}
+		{
+			"picture_nr": "box3_3",
+			"angle": 60,
+		}
+		{
+			"picture_nr": "box3_4",
+			"angle": 90,
+		}
+		{
+			"picture_nr": "box3_5",
+			"angle": 120,
+		}
+		{
+			"picture_nr": "box3_6",
+			"angle": 150,
+		}
+		{
+			"picture_nr": "box3_7",
+			"angle": 180,
+		}
+	]
+	
+	
+}
+{
+	"box": 4,
+	"brand": "Crazyflie",
+	"side_a": 13.4,
+	"side_b": 12.7,
+	"side_c" : 4.1,
+	"main_colours": ["black", "grean", "white"],
+	"graphical_data_image_color": [
+		{
+			"picture_nr": "box4_1",
+			"angle": 0,
+		}
+		{
+			"picture_nr": "box4_2" ,
+			"angle": 30,
+		}
+		{
+			"picture_nr": "box4_3",
+			"angle": 60,
+		}
+		{
+			"picture_nr": "box4_4",
+			"angle": 90,
+		}
+		{
+			"picture_nr": "box4_5",
+			"angle": 120,
+		}
+		{
+			"picture_nr": "box4_6",
+			"angle": 150,
+		}
+		{
+			"picture_nr": "box4_7",
+			"angle": 180,
+		}
+	]
+	
+}
+{
+	"box": 5,
+	"brand": "Staples - Magnetic Dry-wipe Board Eraser",
+	"side_a": 13.4,
+	"side_b": 12.7,
+	"side_c" : 4.1,
+	"main_colours": ["blue", "yellow"],
+	"graphical_data_image_color": [
+		{
+			"picture_nr": "box5_1",
+			"angle": 0,
+		}
+		{
+			"picture_nr": "box5_2" ,
+			"angle": 30,
+		}
+		{
+			"picture_nr": "box5_3",
+			"angle": 60,
+		}
+		{
+			"picture_nr": "box5_4",
+			"angle": 90,
+		}
+		{
+			"picture_nr": "box5_5",
+			"angle": 120,
+		}
+		{
+			"picture_nr": "box5_6",
+			"angle": 150,
+		}
+		{
+			"picture_nr": "box5_7",
+			"angle": 180,
+		}
+	]
+	
+}
+{
+	"box": 6,
+	"brand": "BaseTech",
+	"side_a": 16.8,
+	"side_b": 15.8,
+	"side_c" : 4.5,
+	"main_colours": ["blue", "white", "black"],
+	"graphical_data_image_color": [
+		{
+			"picture_nr": "box6_1",
+			"angle": 0,
+		}
+		{
+			"picture_nr": "box6_2" ,
+			"angle": 30,
+		}
+		{
+			"picture_nr": "box6_3",
+			"angle": 60,
+		}
+		{
+			"picture_nr": "box6_4",
+			"angle": 90,
+		}
+		{
+			"picture_nr": "box6_5",
+			"angle": 120,
+		}
+		{
+			"picture_nr": "box6_6",
+			"angle": 150,
+		}
+		{
+			"picture_nr": "box6_7",
+			"angle": 180,
+		}
+	]
+	
+}

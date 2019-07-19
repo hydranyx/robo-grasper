@@ -1,0 +1,8 @@
+prefix=/home/mega/Documents/AutoSysPE/pas/ros/catkin_ws/devel
+
+Name: alice_object
+Description: Description of alice_object
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/mega/Documents/AutoSysPE/pas/ros/catkin_ws/devel/lib 
+Requires: pcl_ros roscpp sensor_msgs

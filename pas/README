@@ -1,0 +1,26 @@
+After first time cloning:
+navigate to the ros/catkin_ws folder
+run: catkin_make --pkg alice_msgs
+then: catkin_make 
+this should build the workspace, next restart your terminal
+
+Running simulations: 
+roslaunch kinova_gazebo robot_launch.launch
+
+this should spawn Gazebo and Rviz with MoveIt.
+Once Gazebo is open you need to press the play button (bottom bar). This will make the arm move to its begin position (this might not always work...) and resume the simulation. 
+You should see the arm and a floating camera in Gazebo. The camera is roughly the same position as in real life, but simulation should mainly be used for testing.
+
+You can spawn an object by running: rosrun mico spawn_object.py 
+You can make adjustments to the script to change parameters as you see fit. 
+
+
+Running the real arm:
+roslaunch kinova_bringup kinova_robot.launch
+roslaunch mico mico.launch
+
+
+In the package moveit_grasp you can find an example script test.py that can be used to get the ROI of objects on the table and their x,y,z and max z values, and how to interact with MoveIt.
+You will need to implement the _create_grasps(..) function in the moveit.py file in order to be able to grasp objects. 
+ 
+

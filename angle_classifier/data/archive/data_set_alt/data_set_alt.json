@@ -1,0 +1,206 @@
+[
+  {
+    "images": [
+      {
+        "name": "box1_1",
+        "angle": 0
+      },
+      {
+        "name": "box1_2",
+        "angle": 30
+      },
+      {
+        "name": "box1_3",
+        "angle": 60
+      },
+      {
+        "name": "box1_4",
+        "angle": 90
+      },
+      {
+        "name": "box1_5",
+        "angle": 120
+      },
+      {
+        "name": "box1_6",
+        "angle": 150
+      },
+      {
+        "name": "box1_7",
+        "angle": 180
+      },
+      {
+        "name": "box2_1",
+        "angle": 0
+      },
+      {
+        "name": "box2_2",
+        "angle": 30
+      },
+      {
+        "name": "box2_3",
+        "angle": 60
+      },
+      {
+        "name": "box2_4",
+        "angle": 90
+      },
+      {
+        "name": "box2_5",
+        "angle": 120
+      },
+      {
+        "name": "box2_6",
+        "angle": 150
+      },
+      {
+        "name": "box2_7",
+        "angle": 180
+      },
+      {
+        "name": "box3_1",
+        "angle": 0
+      },
+      {
+        "name": "box3_2",
+        "angle": 30
+      },
+      {
+        "name": "box3_3",
+        "angle": 60
+      },
+      {
+        "name": "box3_4",
+        "angle": 90
+      },
+      {
+        "name": "box3_5",
+        "angle": 120
+      },
+      {
+        "name": "box3_6",
+        "angle": 150
+      },
+      {
+        "name": "box3_7",
+        "angle": 180
+      }
+    ]
+  },
+  {
+    "images": [
+      {
+        "name": "box4_1",
+        "angle": 0
+      },
+      {
+        "name": "box4_2",
+        "angle": 30
+      },
+      {
+        "name": "box4_3",
+        "angle": 60
+      },
+      {
+        "name": "box4_4",
+        "angle": 90
+      },
+      {
+        "name": "box4_5",
+        "angle": 120
+      },
+      {
+        "name": "box4_6",
+        "angle": 150
+      },
+      {
+        "name": "box4_7",
+        "angle": 180
+      },
+      {
+        "name": "box5_1",
+        "angle": 0
+      },
+      {
+        "name": "box5_2",
+        "angle": 30
+      },
+      {
+        "name": "box5_3",
+        "angle": 60
+      },
+      {
+        "name": "box5_4",
+        "angle": 90
+      },
+      {
+        "name": "box5_5",
+        "angle": 120
+      },
+      {
+        "name": "box5_6",
+        "angle": 150
+      },
+      {
+        "name": "box5_7",
+        "angle": 180
+      },
+      {
+        "name": "box6_1",
+        "angle": 0
+      },
+      {
+        "name": "box6_2",
+        "angle": 30
+      },
+      {
+        "name": "box6_3",
+        "angle": 60
+      },
+      {
+        "name": "box6_4",
+        "angle": 90
+      },
+      {
+        "name": "box6_5",
+        "angle": 120
+      },
+      {
+        "name": "box6_6",
+        "angle": 150
+      },
+      {
+        "name": "box6_7",
+        "angle": 180
+      },
+      {
+        "name": "box7_1",
+        "angle": 0
+      },
+      {
+        "name": "box7_2",
+        "angle": 30
+      },
+      {
+        "name": "box7_3",
+        "angle": 60
+      },
+      {
+        "name": "box7_4",
+        "angle": 90
+      },
+      {
+        "name": "box7_5",
+        "angle": 120
+      },
+      {
+        "name": "box7_6",
+        "angle": 150
+      },
+      {
+        "name": "box7_7",
+        "angle": 180
+      }
+    ]
+  }
+]

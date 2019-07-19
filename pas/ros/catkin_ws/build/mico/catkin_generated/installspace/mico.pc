@@ -1,0 +1,8 @@
+prefix=/home/mega/Documents/AutoSysPE/pas/ros/catkin_ws/install
+
+Name: mico
+Description: Description of mico
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/mega/Documents/AutoSysPE/pas/ros/catkin_ws/install/lib 
+Requires: 

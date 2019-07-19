@@ -1,0 +1,8 @@
+prefix=/home/mega/Documents/AutoSysPE/pas/ros/catkin_ws/devel
+
+Name: gazebo_test_tools
+Description: Description of gazebo_test_tools
+Version: 1.0.2
+Cflags: -I/home/mega/Documents/AutoSysPE/pas/ros/catkin_ws/devel/include -I/home/mega/Documents/AutoSysPE/pas/ros/catkin_ws/src/gazebo-pkgs/gazebo_test_tools/include
+Libs: -L/home/mega/Documents/AutoSysPE/pas/ros/catkin_ws/devel/lib -lgazebo_test_tools
+Requires: object_msgs gazebo_ros geometry_msgs roscpp std_msgs message_runtime gazebo_ros

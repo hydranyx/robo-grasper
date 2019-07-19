@@ -1,0 +1,473 @@
+[
+{
+	"box": 8,
+	"brand": "gwoon",
+	"images": [
+		{
+			"name": "img8_1",
+			"angle": 0
+		},
+		{
+			"name": "img8_2",
+			"angle": 15
+		},
+		{
+			"name": "img8_3",
+			"angle": 30
+		},
+		{
+			"name": "img8_4",
+			"angle": 45
+		},
+		{
+			"name": "img8_5",
+			"angle": 60
+		},
+		{
+			"name": "img8_6",
+			"angle": 75
+		},
+		{
+			"name": "img8_7",
+			"angle": 90
+		},
+		{
+			"name": "img8_8",
+			"angle": 105
+		},
+		{
+			"name": "img8_9",
+			"angle": 120
+		},
+		{
+			"name": "img8_10",
+			"angle": 135
+		},
+		{
+			"name": "img8_11",
+			"angle": 150
+		},
+		{
+			"name": "img8_12",
+			"angle": 165
+		},
+		{
+			"name": "img8_13",
+			"angle": 180
+		}
+ ]
+},
+{
+	"box": 9,
+	"brand": "toilet_box",
+	  "images": [
+    {
+			"name": "img9_1",
+			"angle": 0
+		},
+		{
+			"name": "img9_2",
+			"angle": 15
+		},
+		{
+			"name": "img9_3",
+			"angle": 30
+		},
+		{
+			"name": "img9_4",
+			"angle": 45
+		},
+		{
+			"name": "img9_5",
+			"angle": 60
+		},
+		{
+			"name": "img9_6",
+			"angle": 75
+		},
+		{
+			"name": "img9_7",
+			"angle": 90
+		},
+		{
+			"name": "img9_8",
+			"angle": 105
+		},
+		{
+			"name": "img9_9",
+			"angle": 120
+		},
+		{
+			"name": "img9_10",
+			"angle": 135
+		},
+		{
+			"name": "img9_11",
+			"angle": 150
+		},
+		{
+			"name": "img9_12",
+			"angle": 165
+		},
+		{
+			"name": "img9_13",
+			"angle": 180
+		}
+    ]
+},
+{
+	
+	"box": 10,
+	"brand": "zotter",
+	  "images": [
+    {
+			"name": "img10_1",
+			"angle": 0
+		},
+		{
+			"name": "img10_2",
+			"angle": 15
+		},
+		{
+			"name": "img10_3",
+			"angle": 30
+		},
+		{
+			"name": "img10_4",
+			"angle": 45
+		},
+		{
+			"name": "img10_5",
+			"angle": 60
+		},
+		{
+			"name": "img10_6",
+			"angle": 75
+		},
+		{
+			"name": "img10_7",
+			"angle": 90
+		},
+		{
+			"name": "img10_8",
+			"angle": 105
+		},
+		{
+			"name": "img10_9",
+			"angle": 120
+		},
+		{
+			"name": "img10_10",
+			"angle": 135
+		},
+		{
+			"name": "img10_11",
+			"angle": 150
+		},
+		{
+			"name": "img10_12",
+			"angle": 165
+		},
+		{
+			"name": "img10_13",
+			"angle": 180
+		}
+    ]
+},
+{
+	
+	"box": 11,
+	"brand": "vonshef",
+	  "images": [
+    {
+			"name": "img11_1",
+			"angle": 0
+		},
+		{
+			"name": "img11_2",
+			"angle": 15
+		},
+		{
+			"name": "img11_3",
+			"angle": 30
+		},
+		{
+			"name": "img11_4",
+			"angle": 45
+		},
+		{
+			"name": "img11_5",
+			"angle": 60
+		},
+		{
+			"name": "img11_6",
+			"angle": 75
+		},
+		{
+			"name": "img11_7",
+			"angle": 90
+		},
+		{
+			"name": "img11_8",
+			"angle": 105
+		},
+		{
+			"name": "img11_9",
+			"angle": 120
+		},
+		{
+			"name": "img11_10",
+			"angle": 135
+		},
+		{
+			"name": "img11_11",
+			"angle": 150
+		},
+		{
+			"name": "img11_12",
+			"angle": 165
+		},
+		{
+			"name": "img11_13",
+			"angle": 180
+		}
+    ]
+},
+{	
+	"box": 12,
+	"brand": "rose_box_side1",
+	"images": [
+    {
+			"name": "img12_1",
+			"angle": 0
+		},
+		{
+			"name": "img12_2",
+			"angle": 15
+		},
+		{
+			"name": "img12_3",
+			"angle": 30
+		},
+		{
+			"name": "img12_4",
+			"angle": 45
+		},
+		{
+			"name": "img12_5",
+			"angle": 60
+		},
+		{
+			"name": "img12_6",
+			"angle": 75
+		},
+		{
+			"name": "img12_7",
+			"angle": 90
+		},
+		{
+			"name": "img12_8",
+			"angle": 105
+		},
+		{
+			"name": "img12_9",
+			"angle": 120
+		},
+		{
+			"name": "img12_10",
+			"angle": 135
+		},
+		{
+			"name": "img12_11",
+			"angle": 150
+		},
+		{
+			"name": "img12_12",
+			"angle": 165
+		},
+		{
+			"name": "img12_13",
+			"angle": 180
+		}
+    ]
+
+},
+{	
+	"box": 13,
+	"brand": "batery_bank_test images",
+  "images": [
+    {
+			"name": "img13_1",
+			"angle": 0
+		},
+		{
+			"name": "img13_2",
+			"angle": 15
+		},
+		{
+			"name": "img13_3",
+			"angle": 30
+		},
+		{
+			"name": "img13_4",
+			"angle": 45
+		},
+		{
+			"name": "img13_5",
+			"angle": 60
+		},
+		{
+			"name": "img13_6",
+			"angle": 75
+		},
+		{
+			"name": "img13_7",
+			"angle": 90
+		},
+		{
+			"name": "img13_8",
+			"angle": 105
+		},
+		{
+			"name": "img13_9",
+			"angle": 120
+		},
+		{
+			"name": "img13_10",
+			"angle": 135
+		},
+		{
+			"name": "img13_11",
+			"angle": 150
+		},
+		{
+			"name": "img13_12",
+			"angle": 165
+		},
+		{
+			"name": "img13_13",
+			"angle": 180
+		}
+    ]
+ 
+},
+{	
+	"box": 14,
+	"brand": "vonshef_small",
+    "images": [
+    {
+			"name": "img14_1",
+			"angle": 0
+		},
+		{
+			"name": "img14_2",
+			"angle": 15
+		},
+		{
+			"name": "img14_3",
+			"angle": 30
+		},
+		{
+			"name": "img14_4",
+			"angle": 45
+		},
+		{
+			"name": "img14_5",
+			"angle": 60
+		},
+		{
+			"name": "img14_6",
+			"angle": 75
+		},
+		{
+			"name": "img14_7",
+			"angle": 90
+		},
+		{
+			"name": "img14_8",
+			"angle": 105
+		},
+		{
+			"name": "img14_9",
+			"angle": 120
+		},
+		{
+			"name": "img14_10",
+			"angle": 135
+		},
+		{
+			"name": "img14_11",
+			"angle": 150
+		},
+		{
+			"name": "img14_12",
+			"angle": 165
+		},
+		{
+			"name": "img14_13",
+			"angle": 180
+		}
+    ]
+
+},
+{	
+	"box": 15,
+	"brand": "rose_box_side1",
+  "images": [
+    {
+			"name": "img15_1",
+			"angle": 0
+		},
+		{
+			"name": "img15_2",
+			"angle": 15
+		},
+		{
+			"name": "img15_3",
+			"angle": 30
+		},
+		{
+			"name": "img15_4",
+			"angle": 45
+		},
+		{
+			"name": "img15_5",
+			"angle": 60
+		},
+		{
+			"name": "img15_6",
+			"angle": 75
+		},
+		{
+			"name": "img15_7",
+			"angle": 90
+		},
+		{
+			"name": "img15_8",
+			"angle": 105
+		},
+		{
+			"name": "img15_9",
+			"angle": 120
+		},
+		{
+			"name": "img15_10",
+			"angle": 135
+		},
+		{
+			"name": "img15_11",
+			"angle": 150
+		},
+		{
+			"name": "img15_12",
+			"angle": 165
+		},
+		{
+			"name": "img15_13",
+			"angle": 180
+		}
+    ]
+
+}
+
+]

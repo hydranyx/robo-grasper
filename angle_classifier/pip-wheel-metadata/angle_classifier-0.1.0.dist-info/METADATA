@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: angle-classifier
+Version: 0.1.0
+Summary: 
+Author: Jordis Hollander
+Author-email: jordis1995@live.nl
+Requires-Python: >=3.7,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Requires-Dist: matplotlib (>=3.0,<4.0)
+Requires-Dist: pandas (>=0.24.2,<0.25.0)
+Requires-Dist: pillow (>=6.0,<7.0)
+Requires-Dist: scikit-image (>=0.15.0,<0.16.0)
+Requires-Dist: scikit-learn (>=0.20.3,<0.21.0)

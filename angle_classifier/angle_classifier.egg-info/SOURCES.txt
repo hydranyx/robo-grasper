@@ -1,0 +1,8 @@
+README.rst
+setup.py
+angle_classifier/__init__.py
+angle_classifier.egg-info/PKG-INFO
+angle_classifier.egg-info/SOURCES.txt
+angle_classifier.egg-info/dependency_links.txt
+angle_classifier.egg-info/requires.txt
+angle_classifier.egg-info/top_level.txt

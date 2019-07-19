@@ -1,0 +1,44 @@
+* data-set
+The data-set has been made on 29.04.2019 with help of the file subscriber_img.py.
+The following environment was setup:
+#+BEGIN_SRC py
+go into pas$
+run: roscore
+go into: pas/ros/catkin_ws/src$
+run: roslaunch openni2_launch openni2.launch
+go into: pas/ros/catkin_ws$
+run: roslaunch moveit_grasp tf.launch
+go into: pas/ros/catkin_ws/src/moveit_grasp$
+run: rosrun alice_object alice_object_node 
+comment: one might need to wait and go ahaid running the following
+go into: pas/ros/catkin_ws/src/moveit_grasp/scripts$
+run: python subscriber_img.py
+#+END_SRC
+The training set can be found in the box folders 1 through 6. And the test sets can be found in the test folders 1 through 6.
+
+
+
+* Classifier of angels
+** preprocessing raw colored image data
+   taking some data and comparing it to some values.
+   feature extraction process
+** processing 
+** validation
+** pipeline it all 
+*** from sklearn.naive_bayes import GaussianNB
+*** from sklearn.preprocessing import StandardScaler
+*** make_pipeline(StandardScaler(), GaussianNB(priors=None))
+
+    
+* doesn't work if:
+** transparant empty bottle
+** object can't be planned due to:
+   - being too far away
+   - being too close for arm to get because of a weird angle
+** can't classify object angle
+   - if the box is too close to another box and it captures it in the same image and the image gives confusion. The classifier is not trained on much noise. 
+** if the camera cant detect the object
+   - because the object is too small
+   - because the object is out of the set frame
+   - because the object is too far away of it's size, thus too small.
+** if it thinks it didn't get the object or it got some resistance in the execution an error appears
