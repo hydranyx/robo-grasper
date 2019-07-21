@@ -267,8 +267,33 @@ gradients contained within it. This information is then used to divide the
 gradient angle into bins spaced over \ang{0} -- \ang{180}. These HOG descriptors
 are then combined into the final feature vector.
 
-SIFT features are ...
-\lipsum[1]
+As described by Lowe, the computation of SIFT features consists of four primary
+steps \cite{Lowe2004}. The first step is scale-space extrema detection which
+uses a difference-of-Gaussian function to determine points that are invariant to
+scale and orientation. This is used to compute the difference between the input
+image and a copy of the image that has been scaled. Each point in the resulting
+difference is compared against neighboring points at the same scale and
+neighboring points up and down the scale. If the point is a maximum or minimum
+against these points then it is an extrema. The seconds step is keypoints
+localization and involves identifying keypoints among the identified extrema. A
+model is fit to determine location and scale and filters candidate keypoints
+based on stability. The third step is orientation assignment and assigns
+orientations to each keypoint based on local image gradient directions. This
+provides invariance to image rotation. The magnitudes and orientations of the
+local image gradients are sampled around each keypoint location. This gradient
+information is rotated to align with the keypoint and weighted by a Gaussian
+with variance proportional to the keypoint scale. This is then used to create
+the keypoint descriptors is the form of histograms over a window in a keypoint.
+This final step provides orientation invariance and resistance to local shape
+distortion and changes in illumination.
+
+However, the resulting keypoint descriptors are not suitable as a feature to
+train the SVM due to the differing number of keypoints that may be extracted
+from each image. This is resolved by computing a Visual Bag of Words representation
+by using KMeans clustering on the extracted SIFT descriptors. The descriptor of
+the image is then computed by assigning each SIFT of the image to one of the
+K-clusters. The resulting histogram is then normalized with L1 normalization and
+is now of consistent length. This is then used as the basis for the SVM.
 
 These features were contrasted against simply using the preprocessed image as
 is. Thus, the feature extraction steps are as follows:
@@ -402,8 +427,10 @@ follows:
   \text{accuracy} = \dfrac{\text{number of images classified correctly}}{\text{total number of images}}
 \end{equation*}
 
-The testing data-set consisted of 85 images of boxes on the table in a variety
-of orientations. The results for the various pipelines are presented in section
+The testing data-set consisted of 85 images of boxes on the table positioned in
+angles from \ang{0} and \ang{180}. For each image the system should classify it
+as the angle it is closest to out of \ang{0}, \ang{45}, \ang{90}, and \ang{135}.
+The results for the various pipelines are presented in section
 \ref{sec:results}. 85 images provides a reasonably large data-set for testing
 and exhausts the boxes of the right dimensions and mass that were reasonably
 accessible.
@@ -420,30 +447,22 @@ of the system.
 How long does it take to remove one box from a table? Measuring this consisted
 of setting up a trial box in the environment and executing the system. The time
 taken from the start of the execution to the end (with the arm returning to the
-start position) was measured. In the real environment the outcome was a more
-consistent than the virtual environment. For the real environment the runtime
-was approximately 44 seconds consistently with a variance of approximately 3
-seconds based on the position of the box on the table. The results for these
-tests in the virtual environment were highly variable due to limitations of the
-simulation. It is of little real-world significance and depends highly on the
-computational resources and the power of the hardware available to the
-simulation.
-
-As these measurements were not of main focus for the project, the timings were not
-included as a result and testing the timing was discarded.
+start position) was measured. Though the execution time was not the priority for
+the project, it was important to ensure that the real world execution time was
+reasonable.
 
 \subsubsection{Testing Accuracy of Single Box Configurations}
 For the real-world environment, 7 different boxes were tested in 4 different
 configurations each. The boxes may be seen in the appendix. Each test for each
 box for each configuration was trialed twice. This resulted in a total of 56
 trials. The four configurations were \ang{0}, \ang{45}, \ang{90}, and \ang{135}.
-Each trial was successful.
 
 For the simulated environment, the same trials were conducted. Boxes of similar
 proportions were tested with the four configurations of \ang{0}, \ang{45},
 \ang{90}, and \ang{135}. As may be seen in the results for these trials, the
-system was very inaccurate in the simulation. As a result, the trials for
-robustness were not conducted for the simulation.
+system was very inaccurate in the simulation. As a prerequisite for the
+robustness trails the system should perform well in the single box configuration
+test. Thus, the trials for robustness were not conducted for the simulation.
 
 \subsubsection{Testing Robustness}
 The robustness of the system was tested qualitatively. A variety of edge cases
@@ -453,14 +472,50 @@ system functioned correctly for that configuration. The limits that were tested
 are as follows:
 
 \begin{itemize}
-\item Limits of possible locations to grasp on the table
-\item Limits of object detection (minimum size and transparency)
-\item Limits of grasping (object thickness, object height)
-\item Limits of classification (various object dimensions)
-\item Limits of classification with multiple independent objects
-\item Limits of classification with stacked objects
+\item \textbf{Limits of possible locations to grasp on the table.}
+  There are two obvious limiting factors. First, the box must be within the
+  bounds of the octomap virtual planning environment (which is itself within the
+  bounds of the view of the camera). Second, the box must be reachable by the arm.
+  Problem cases are when the box is too far away from the arm or too close for the
+  joints of the arm to contort themselves. The limits are defined in terms of the
+  distance in \si{\centi\meter} from the base of the arm. These limits will be
+  tested with a box that is easily detectable, classifiable, and graspable (box 1
+  from figure \ref{fig:test_boxes}).
+\item \textbf{Limits of object detection (minimum size and transparency).}
+  As may be seen in figure \ref{fig:1}, \texttt{object detection} is required
+  before any other step in the main execution pipeline. Obviously, the object must
+  be within the visual field of the camera. However, there may be a lower limit on
+  size of the object where it stops being detected. The system was tested on boxes
+  of different sizes to determine the lower limit of the object dimensions that
+  could be detected. The system was also tested on transparent objects to
+  determine if transparency would cause issues in object detection.
+\item \textbf{Limits of grasping (object thickness, object height):}
+  When grasping an object the system is conservative in how far the fingers
+  close. This is to prevent the arm from crushing the objects that it is
+  attempting to grasp. Additionally, the arm may be unable to grasp an object
+  which is too short. These limits were tested on boxes of different thicknesses
+  and heights to determine these limits.
+\item \textbf{Limits of classification (various object dimensions).}
+  Boxes were acquired outside of the initial testing dataset to test edge cases
+  in object classification. This included boxes, that were tall and
+  thin or short and fat.
+\item \textbf{Limits of classification with multiple independent objects.}
+  The images the classifier was trained on consisted of single boxes. When
+  multiple boxes are present in a scene it is possible that the image has the
+  boxes overlapping. Though this will likely function in the object detection
+  phase, it may cause issues in the angle classification phase. This was tested by
+  placing multiple boxes in the scene simultaneously to determine how the
+  classifier would react. Some tests involved placing boxes behind each other and
+  in other tests the boxes were separated with space between each other.
+\item \textbf{Limits of classification with stacked objects.}
+  As with the previous limitation, stacked objects may pose a problem. The
+  configurations that were considered were boxes that were stacked with the same
+  orientation, perpendicular to each other. Boxes of different sizes were also
+  stacked either in the same orientation or perpendicular to each other.
 \end{itemize}
 
+The aim of these tests was to provide a sense of the operational boundaries of
+the system and to help guide future development.
 The specific tests and their outcomes are detailed in section \ref{sec:results}.
 % This section should present the experimental setup and should to show that your
 % system is working correctly. You need to come up with a way to show that your
@@ -485,6 +540,16 @@ The specific tests and their outcomes are detailed in section \ref{sec:results}.
 \label{sec:results}
 % \noindent {\bf [1.5 points]}
 % This section should present your results. Present your results in tables/graphs and write about what these results mean in detail.
+
+\subsection{Results for the Timing Experiments}
+In the real world environment the outcome was a more consistent than the virtual
+environment. For the real environment the runtime was approximately 44 seconds
+consistently with a variance of approximately 3 seconds based on the position of
+the box on the table. The results for these tests in the virtual environment
+were highly variable due to limitations of the simulation. It is of little
+real world significance and depends highly on the computational resources and
+the power of the hardware available to the simulation. These experiments have
+confirmed that the real world execution time is reasonable.
 
 \subsection{Results for Classifier Experiments}
 The classifier pipelines consist of a preprocessing technique and a feature
@@ -610,62 +675,52 @@ the system are. So, a variety of limits associated with different parts of the
 system were considered.
 
 \subsubsection{Limits of possible locations to grasp on the table}
-There are two obvious limiting factors. First, the box must be within the bounds
-of the octomap virtual planning environment (which is itself within the bounds
-of the view of the camera). Second, the box must be reachable by the arm.
-Problem cases are when the box is too far away from the arm or too close for the
-joints of the arm to contort themselves. When testing with a box that is both
-easily detectable, classifiable, and graspable these limits were found. For the
-box which was \SI{9.5}{\centi\meter} high, it could be grasped when it was a
-minimum of \SI{10}{\centi\meter} from the base of the arm and a maximum at the
-very edge of the octomap at approximately \SI{67}{\centi\meter} from the base of
-the arm.
+For the tested box which was \SI{9.5}{\centi\meter} high, it could be grasped
+when it was a minimum of \SI{10}{\centi\meter} from the base of the arm and a
+maximum at the very edge of the octomap at approximately \SI{67}{\centi\meter}
+from the base of the arm. When it was placed closer or further away the arm was
+unable to perform a successful grasp.
 
 \subsubsection{Limits of object detection (minimum size and transparency)}
-As may be seen in figure \ref{fig:1}, \texttt{object detection} is required
-before any other step in the main execution pipeline. Obviously, the object must
-be within the visual field of the camera. However, if the object is transparent,
-such as with the tested plastic bottle, the system fails to detect the presence
-of the object. Additionally, when the system was tested with a Rubix cube with
-each side being \SI{1.5}{\centi\meter}, it was discovered that the system could
-only detect the object if it was sufficiently close to the camera. When the cube
-was placed more than \SI{45}{\centi\meter} away from the edge of the table
-facing the camera, it ceased to be detected. Thus, it is clear that based on the
-size and proximity to the camera the ability of the system to detect objects
-varies. The precise relationship and the lower limits of this were not
-determined.
+If the object is transparent, such as with the tested plastic bottle, the system
+fails to detect the presence of the object. Additionally, when the system was
+tested with a Rubix cube with each side being \SI{1.5}{\centi\meter}, it was
+discovered that the system could only detect the object if it was sufficiently
+close to the camera. When the cube was placed more than \SI{45}{\centi\meter}
+away from the edge of the table facing the camera, it ceased to be detected.
+Thus, it is clear that based on the size and proximity to the camera the ability
+of the system to detect objects varies. The precise relationship and the lower
+limits of this were not determined.
 
 \subsubsection{Limits of grasping (object thickness, object height)}
-When grasping an object the system is conservative in how far the fingers close.
-This is to prevent the arm from crushing the objects that it is attempting to
-grasp. As a result, there is a minimum thickness required for the object in
-order to be grabbed. The minimum thickness was approximately
-\SI{1.3}{\centi\meter}.
+During the tests on the various boxes it was determined that the minimum
+thickness required for the object to be grabbed was approximately
+\SI{1.3}{\centi\meter}. Any smaller and the grip was too weak to be able to grab
+the object.
 
 If the arm is oriented correctly, it is able to pick up objects only
 \SI{1}{\centi\meter} high. This was tested on a small box (\SI{1}{\centi\meter}
 x \SI{4}{\centi\meter} x \SI{6}{\centi\meter}). However, if the orientation
-results in any of the fingers scraping against the table, the arm responds with an internal error signaling the end of the grasp.
+results in any of the fingers scraping against the table, the arm responds with
+an internal error signaling the end of the grasp.
 
 \subsubsection{Limits of classification (various object dimensions)}
 When testing additional boxes outside of the original testing data-set, it was
-determined that tall and boxes which stood high were categorized as having an
-angle of \ang{0}, irrespective of its orientation. The effect of the depth plays
-a role in determining the angle, and the reduced depth leads to
+determined that tall and thin boxes which stood high were categorized as having
+an angle of \ang{0}, irrespective of its orientation. The effect of the depth
+plays a role in determining the angle, and the reduced depth leads to
 misclassification.
 
 \subsubsection{Limits of classification with multiple independent objects}
-The images the classifier was trained on consisted of single boxes. When
-multiple boxes are present in a scene it is possible that the image has the
-boxes overlapping. Though the object detection may detect these as multiple
-objects, the classifier is likely to misclassify the image, as it considers the
-overlapping boxes as one large box. However, it may be lucky and determine the
-correct angle.
+Though the object detection detects the multiple objects as independent objects,
+the classifier seems to misclassify the image, as it considers the overlapping
+boxes as one large box. In certain circumstances (such as if the multiple boxes
+have the same angle) the system may still function correctly.
+
 \subsubsection{Limits of classification with stacked objects}
-As with the previous limitation, stacked objects pose a problem. Object which
-are stacked with the same orientation, tend to be classified correctly (though
-it is likely that they are classified as one large object). Each object in the
-stack would then be removed sequentially.
+Objects which are stacked with the same orientation, tend to be classified
+correctly (though it is likely that they are classified as one large object).
+Each object in the stack would then be removed sequentially.
 
 Items of a similar size that are stacked perpendicular to each other, result in
 a classification that matches the orientation of either one object, the other
@@ -762,6 +817,8 @@ events is required.
 \bibitem{Dalal2005} Dalal, N. and Triggs, B., Histograms of Oriented Gradients
   for Human Detection, IEEE Computer Society Conference on Computer Vision and
   Pattern Recognition, 2005, San Diego, CA, USA.
+\bibitem{Lowe2004} David G. Lowe, Distinctive Image Features from
+  Scale-Invariant Keypoints, University of British Columbia, 2004.
 \bibitem{Dong2010} Li Dong, Xinguo Yu, Liyuan Li, and Jerry Kah Eng Hoe, HOG Based
   Multi-Stage Object Detection and Pose Recognition for Service Robot, ICARCV,
   2010, pp. 2495-2500.
