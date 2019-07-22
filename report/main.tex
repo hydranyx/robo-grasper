@@ -84,7 +84,7 @@
   The most-accurate classification pipeline was the pipeline which consisted of
   grayscaling the image as the preprocessing step and extracting the Histogram of
   Oriented Gradients as the feature extraction step. On the testing data-set
-  (consisting of single boxes at various angles) this pipeline operated at 88\%
+  (consisting of single boxes at various angles) this pipeline operated at 88.5\%
   accuracy.
 \end{abstract}
 
@@ -121,7 +121,7 @@ determine a robust solution a variety of prepocessing steps and extraction
 techniques were attempted on the image data-set.
 
 With the classifier in-place, the next stage is to implement the grasp
-through message communication. With this in the place the robot is ready to
+through message communication. With this the robot is ready to
 grasp a box from the environment.
 
 A description of the steps that must occur within the system are as follows:
@@ -147,7 +147,7 @@ In section \ref{sec:method} the method for angle classification and object
 communication are elaborated upon. In section \ref{sec:experiments} the
 experimental setup and methodology is described, both of the simulation and of
 the real-world composition. Section \ref{sec:results} details the experiments
-that were undertaken and the lists their results. Section \ref{sec:discussion}
+that were undertaken and lists their results. Section \ref{sec:discussion}
 discusses the results and forms a final conclusion. In this final section,
 issues that arose throughout the development of the pipeline are also discussed.
 
@@ -170,7 +170,7 @@ issues that arose throughout the development of the pipeline are also discussed.
 % four subsections but you are free to add more.
 
 The approach for developing the pipeline to allow the MICO arm to grasp a box
-from a table consists of three main parts. A data-set of box images, a
+from a table consists of three main sections. A data-set of box images, a
 classifier that determines the angles of the boxes, and a grasping function that
 picks up and removes boxes from the table.
 
@@ -197,12 +197,12 @@ These inaccuracies were resolved in two ways. By increasing the variety of boxes
 in the data-set and by reducing the number of angles considered. This is
 reasonable for this use-case as it was determined that the arm could grasp a
 majority of the boxes in their various orientations with an angle of one of
-\ang{0}. \ang{45}, \ang{90}, or \ang{135}.
+\ang{0}, \ang{45}, \ang{90}, or \ang{135}.
 
 \subsection{Constructing the Classifier} %[1 point]
-With the data-set in place, the classifier could be constructed. To begin with
-the data-set was partitioned into a training set and a testing set. The
-underlying model for the classifier is a SVM.
+With the data-set in place, the classifier could be constructed. The underlying
+model for the classifier is a SVM. First, the data-set was partitioned into a
+training set and a testing set.
 
 Each image in the data-set underwent a form of preprocessing and feature
 extraction prior to training (or indeed is also required before actual
@@ -259,9 +259,9 @@ input image undergoes gamma normalization, whereby square-root gamma compression
 is applied across each color channel. This reduces the influence of illumination
 in the final feature vector. Next, the gradient image is computed along the $x$
 and $y$ of the image. For color images, this is computed across each channel,
-with the resulting gradient vector corresponding to the gradient vector the
+with the resulting gradient vector corresponding to the gradient vector of the
 largest norm for that pixel across each channel. The next step is orientation
-binning. The image is split into cells each of which consist of $16 \times 16$
+binning. The image is split into cells, each of which consist of $16 \times 16$
 pixels. Each cell accumulates the information of the orientation of the
 gradients contained within it. This information is then used to divide the
 gradient angle into bins spaced over \ang{0} -- \ang{180}. These HOG descriptors
@@ -274,7 +274,7 @@ scale and orientation. This is used to compute the difference between the input
 image and a copy of the image that has been scaled. Each point in the resulting
 difference is compared against neighboring points at the same scale and
 neighboring points up and down the scale. If the point is a maximum or minimum
-against these points then it is an extrema. The seconds step is keypoints
+against these points then it is an extrema. The second step is keypoints
 localization and involves identifying keypoints among the identified extrema. A
 model is fit to determine location and scale and filters candidate keypoints
 based on stability. The third step is orientation assignment and assigns
@@ -295,19 +295,18 @@ the image is then computed by assigning each SIFT of the image to one of the
 K-clusters. The resulting histogram is then normalized with L1 normalization and
 is now of consistent length. This is then used as the basis for the SVM.
 
-These features were contrasted against simply using the preprocessed image as
-is. Thus, the feature extraction steps are as follows:
+These feature extraction techniques were contrasted against simply using the
+entire preprocessed image as the feature. Thus, the feature extraction steps are
+as follows:
 \begin{itemize}
 \item Leaving the preprocessed image as is (for comparison purposes).
 \item Extracting HOG features.
 \item Extracting SIFT features.
 \end{itemize}
 
-The combination of each of preprocessing step and each feature extraction step
-resulted in a variety of pipelines. The most successful of these pipelines had
-to be determined and was done so by testing each pipeline on the testing
-data-set. The most accurate pipeline was included in the final application. The
-results of these tests are included in section \ref{sec:results}.
+The combination of each preprocessing step and each feature extraction step
+resulted in a variety of pipelines. The most accurate of these pipelines was
+included in the final application.
 
 \subsection{Grasping} %[1 point]
 The process for grasping requires the position for each object on the table and
@@ -334,10 +333,10 @@ ecosystem facilitating the actual motion computation.
 To describe the overall behavior of the system it is useful to consult a state
 machine describing the basic states of the system during execution. See figure \ref{fig:1}.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[->,>=stealth', shorten >=1pt, auto,
-    node distance=2.2cm, scale=1,
+    node distance=2.2cm, scale=0.9,
     transform shape, align=center,
     state/.style={rectangle, draw}
     ]
@@ -364,16 +363,17 @@ The starting state for the system is with the arm being in its \textbf{Initial
   Position}. This entails the arm moving to a predefined start position with its
 fingers being in the open grasp position. Upon the detection of an object we
 shift to the \textbf{Object Detected} state. As the object has been detected its
-position may be extracted via the \textit{Alice} object. The object also
-provides an image which may be run through the angle classifier. This provides
-both the position and the angle which allows the transition to the next state
-with the \textbf{Grasp Constructed}. A grasp may fail or may be successful. On
-failure the system faced an \textbf{Error Grabbing Object} which is responded to
-by clearing the state and returning the arm to the \textbf{Initial Position}. If
-the grasp has executed successfully the arm has the \textbf{Object Grabbed}. In
-this state the arm moves to the \textbf{Final Position}, opening the fingers and
-releasing the object. Finally the arm then returns to the \textbf{Initial
-  Position}. This cycles continues while there are objects to be detected.
+position may be extracted by communicating with the interface to the object
+detection server. This also provides an image which may be run through the angle
+classifier. This provides both the position and the angle which allows the
+transition to the next state with the \textbf{Grasp Constructed}. A grasp may
+fail or may be successful. On failure the system faced an \textbf{Error Grabbing
+  Object} which is responded to by clearing the state and returning the arm to the
+\textbf{Initial Position}. If the grasp has executed successfully the arm has
+the \textbf{Object Grabbed}. In this state the arm moves to the \textbf{Final
+  Position}, opening the fingers and releasing the object. Finally the arm then
+returns to the \textbf{Initial Position}. This cycles continues while there are
+objects to be detected.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -393,30 +393,28 @@ The real-world setup consists of a table with the Kinova MICO arm mounted to it.
 There is a stationary camera providing a fixed viewpoint of the table. Testing
 the overall capabilities of the system consists of placing boxes onto the table
 and running the program. If successful the arm will grasp each box and remove
-them from the table, dropping them in the bin. An image of the environment may
+them from the table, dropping them in a bin. An image of the environment may
 be seen in figure \ref{fig:real_environment}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\linewidth]{real_environment.png}
+  \includegraphics[width=0.6\linewidth]{real_environment.png}
   \caption{\label{fig:real_environment} Real-world Execution Environment}
 \end{figure}
 
 Aside from the real-world setup, the system was also developed and tested using
 a simulation. \textit{RViz} and \textit{Gazebo} were the tools used to interact
 and view this environment. As may be seen in figure
-\ref{fig:virtual_environment}, the simulation also consisted of an arm and a
-fixed viewpoint camera. This camera provides a snapshot of the scene containing
-the target boxes.
+\ref{fig:virtual_environment}, the virtual environment also consisted of an arm
+and a fixed viewpoint camera. This camera provides a snapshot of the scene
+containing the target boxes. The success criterion for the simulation is also a
+successful grasp of the boxes in the simulated environment.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\linewidth]{virtual_environment.png}
+  \includegraphics[width=0.6\linewidth]{virtual_environment.png}
   \caption{\label{fig:virtual_environment} Visualization of Virtual Environment}
 \end{figure}
-
-The success criterion for the simulation is also a successful grasp of the boxes
-in the simulated environment.
 
 \subsection{Experiments on the Classifiers}
 With respect to testing the classifiers, the setup consisted of constructing the
@@ -428,7 +426,7 @@ follows:
 \end{equation*}
 
 The testing data-set consisted of 85 images of boxes on the table positioned in
-angles from \ang{0} and \ang{180}. For each image the system should classify it
+angles from \ang{0} to \ang{180}. For each image the system should classify it
 as the angle it is closest to out of \ang{0}, \ang{45}, \ang{90}, and \ang{135}.
 The results for the various pipelines are presented in section
 \ref{sec:results}. 85 images provides a reasonably large data-set for testing
@@ -496,7 +494,7 @@ are as follows:
   which is too short. These limits were tested on boxes of different thicknesses
   and heights to determine these limits.
 \item \textbf{Limits of classification (various object dimensions).}
-  Boxes were acquired outside of the initial testing dataset to test edge cases
+  Boxes were acquired outside of the initial testing data-set to test edge cases
   in object classification. This included boxes, that were tall and
   thin or short and fat.
 \item \textbf{Limits of classification with multiple independent objects.}
@@ -510,8 +508,8 @@ are as follows:
 \item \textbf{Limits of classification with stacked objects.}
   As with the previous limitation, stacked objects may pose a problem. The
   configurations that were considered were boxes that were stacked with the same
-  orientation, perpendicular to each other. Boxes of different sizes were also
-  stacked either in the same orientation or perpendicular to each other.
+  orientation and perpendicular to each other. Boxes of different sizes that were
+  stacked were also considered in the same fashion.
 \end{itemize}
 
 The aim of these tests was to provide a sense of the operational boundaries of
@@ -585,7 +583,7 @@ preprocessing techniques involving grayscaling operate at a higher accuracy. The
 intuition for this is that the absence of color improves the consistency of HOG
 feature extraction. The same logic lead to the incorporation of blurring.
 
-Blurring the image (either in color or in grayscale) seems to result in an
+Blurring the image (either in color or in grayscale) seems to result in a
 relatively accurate classifier irrespective of the feature extraction technique
 employed.
 
@@ -624,12 +622,12 @@ table), while a \xmark~ indicates if the trial was unsuccessful.
   \label{tab:trials_real_world}
 \end{table}
 
-As may be seen for the simple cases in the real-world the system was successful
-in every case. This may explained by the relative simplicity of these
-orientations. When running the classifier based on grayscaled HOG features on
-the subset of the testing data-set that correspond to these images, it operates
-at a 96\% accuracy. However, as may be seen in table \ref{tab:trials_simulated}
-this does not hold when considering the trials in the simulated environment.
+As may be seen, the system was successful in every case. This may be explained
+by the relative simplicity of these orientations. When running the classifier
+based on grayscaled HOG features on the subset of the testing data-set that
+correspond to these images, it operates at a 96\% accuracy. However, as may be
+seen in table \ref{tab:trials_simulated} this does not hold when considering the
+trials in the simulated environment.
 
 \begin{table}[H]
   \centering
@@ -657,21 +655,21 @@ this does not hold when considering the trials in the simulated environment.
   \label{tab:trials_simulated}
 \end{table}
 
-For the simulated environment every box that is at \ang{45} and \ang{135}
-degrees fails. As a result the accuracy in the simulated environment is 50\%.
-The only portion of the pipeline that could lead to this sort of failure for
-these simple cases is the classifier. When testing this assumption, it was noted
-that each image from the simulated environment corresponding with the angles of
-\ang{45} and \ang{135} were classified as \ang{0} or \ang{90} degrees. The
-reasons for this are elaborated on in section \ref{sec:discussion}.
+For the simulated environment every box that is at \ang{45} and \ang{135} fails.
+As a result, the accuracy in the simulated environment is 50\%. The only portion
+of the pipeline that could lead to this sort of failure for these simple cases
+is the classifier. When testing this assumption, it was noted that each image
+from the simulated environment corresponding with the angles of \ang{45} and
+\ang{135} were classified as \ang{0} or \ang{90} degrees. The reasons for this
+are elaborated on in section \ref{sec:discussion}.
 
 Ultimately, irrespective of the issues in the simulation, the results for the
-real-world execution holds the most significance. As a result, it is now
+real-world execution holds the most significance. Thus, it is now
 important to consider the real-world performance for more complex scenarios.
 
 \subsection{Trials for Robustness of Overall System in Real-world Environment}
-The trials for robustness are qualitative and to determine what the limits of
-the system are. So, a variety of limits associated with different parts of the
+The trials for robustness are qualitative and used to determine the limits of
+the system. So, a variety of limits associated with different parts of the
 system were considered.
 
 \subsubsection{Limits of possible locations to grasp on the table}
@@ -743,7 +741,7 @@ for a majority of the real-world scenarios tested, the object detection
 succeeds. Angle classification entailed the selection of the best combination
 between a prepocessing step and a feature extraction step. It was determined,
 that grayscaled images when run through HOG feature extraction lead to the best
-results, resulting in 88.5\% accuracy on the test data-set. The classifier
+results, resulting in 88.5\% accuracy on the testing data-set. The classifier
 however, has difficulty in handling tall, thin objects and has great difficulty
 classifying correctly in the simulation. The primary reason for this is apparent
 when considering figure \ref{fig:pipelines}.
@@ -751,11 +749,13 @@ when considering figure \ref{fig:pipelines}.
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.238\textwidth}
-    \includegraphics[width=\textwidth]{simulation_vs_real_world_base_case.png}
+    \centering
+    \includegraphics[width=0.8\textwidth]{simulation_vs_real_world_base_case.png}
     \caption{\label{fig:simulation_vs_real_world_0}\ang{0}}
   \end{subfigure}
   \begin{subfigure}[b]{0.238\textwidth}
-    \includegraphics[width=\textwidth]{simulation_vs_real_world_broken.png}
+    \centering
+    \includegraphics[width=0.8\textwidth]{simulation_vs_real_world_broken.png}
     \caption{\label{fig:simulation_vs_real_world_135}\ang{135}}
   \end{subfigure}
   \caption{\label{fig:pipelines} Processing Pipeline for Real-World vs.
@@ -768,7 +768,7 @@ real-world environment than the simulated environment. However, given that the
 classifier is trained on these real-world noisy features it is able to handle
 the classification correctly. Additionally, for the simulated box in figure
 \ref{fig:simulation_vs_real_world_0} the classifier responds correctly. This is
-to be expected given that the shape of the resulting features is almost
+to be expected given that the shape of the resulting features are almost
 characteristic of that angle. However, when considering the simulated box for
 figure \ref{fig:simulation_vs_real_world_135}, the classifier is unable to
 classify correctly. This is evident as after grayscaling the shadow ends up as a
@@ -780,7 +780,7 @@ With classification handled, the final component was grasping the object. For
 the simple boxes that were tested, the grasping was successful in every case.
 However, there were limitations to the placement of the object (being too close
 or too far) and of the dimensions of the object (too thin). Ultimately, the
-resulting system is able to handled the detection, classification, and grasping
+resulting system is able to handle the detection, classification, and grasping
 of simple box objects robustly. However, more complex configurations involving
 multiple overlapping objects or stacked objects cause problems at the angle
 classification layer. Further research in segmentation of the objects,
