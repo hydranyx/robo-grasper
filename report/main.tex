@@ -37,6 +37,8 @@
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
 \usepackage{lipsum}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{-6pt}
 
 \title{\LARGE \bf
   Autonomous Systems Practical Extension -- WBAI14001.2018-2019.2B \\
@@ -297,7 +299,7 @@ is now of consistent length. This is then used as the basis for the SVM.
 
 These feature extraction techniques were contrasted against simply using the
 entire preprocessed image as the feature. Thus, the feature extraction steps are
-as follows:
+as follows:\\
 \begin{itemize}
 \item Leaving the preprocessed image as is (for comparison purposes).
 \item Extracting HOG features.
@@ -309,20 +311,19 @@ resulted in a variety of pipelines. The most accurate of these pipelines was
 included in the final application.
 
 \subsection{Grasping} %[1 point]
-The process for grasping requires the position for each object on the table and
-the angle for each object. The position is determined through provided code and
-the angle may be determined via the classifier. These attributes for the object
-are then added to the internal representation of the environment known as the
-octomap. With the objects in the octomap, the provided code and the \textit{ROS}
-ecosystem can handle the motion planning. As a result, grasping then simply
-consisted of setting the starting state to the starting position with the
-fingers closed, moving the arm to the position above the object, and orienting
-the arm to match the angle of the object. The object may then be grasped, with
-the arm then moving to a predetermined final position. If all of the potential
-grasps fail, the arm then returns to the starting position. The messages for
-communicating with the arm were constructed using the \textit{MoveIt} framework
-with the path planning and inverse kinematics integrated into the \textit{ROS}
-ecosystem facilitating the actual motion computation.
+Grasping requires the position and angle for each object on the table. The
+position is determined through provided code and the angle may be determined via
+the classifier. These attributes for the object are then added to the internal
+representation of the environment known as the octomap. With the objects in the
+octomap, the provided code and the \textit{ROS} ecosystem can handle the motion
+planning. As a result, grasping then consisted of setting the starting state,
+moving the arm to the position above the object, and orienting the arm to match
+the angle of the object. The object is then grasped, with the arm then moving to
+a predetermined final position. If all the potential grasps fail, the arm then
+returns to the starting position. The messages for communicating with the arm
+were constructed using the \textit{MoveIt} framework with the path planning and
+inverse kinematics integrated into the \textit{ROS} ecosystem facilitating the
+actual motion computation.
 
 \subsection{Behavior/Architecture} %  [1 points]
 % Insert here a figure representing the state machine designed for the overall
@@ -398,7 +399,7 @@ be seen in figure \ref{fig:real_environment}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\linewidth]{real_environment.png}
+  \includegraphics[width=0.8\linewidth]{real_environment.png}
   \caption{\label{fig:real_environment} Real-world Execution Environment}
 \end{figure}
 
@@ -412,7 +413,7 @@ successful grasp of the boxes in the simulated environment.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\linewidth]{virtual_environment.png}
+  \includegraphics[width=0.8\linewidth]{virtual_environment.png}
   \caption{\label{fig:virtual_environment} Visualization of Virtual Environment}
 \end{figure}
 
@@ -472,39 +473,36 @@ are as follows:
 \begin{itemize}
 \item \textbf{Limits of possible locations to grasp on the table.}
   There are two obvious limiting factors. First, the box must be within the
-  bounds of the octomap virtual planning environment (which is itself within the
-  bounds of the view of the camera). Second, the box must be reachable by the arm.
-  Problem cases are when the box is too far away from the arm or too close for the
-  joints of the arm to contort themselves. The limits are defined in terms of the
-  distance in \si{\centi\meter} from the base of the arm. These limits will be
-  tested with a box that is easily detectable, classifiable, and graspable (box 1
-  from figure \ref{fig:test_boxes}).
+  bounds of the octomap virtual planning environment. Second, the box must be
+  reachable by the arm. Problem cases are when the box is too far away from the
+  arm or too close for the joints of the arm to contort themselves. The limits are
+  defined in terms of the distance in \si{\centi\meter} from the base of the arm.
+  These limits will be tested with box 1 from figure \ref{fig:test_boxes} as it
+  is easy to detect, classify, and grasp.
 \item \textbf{Limits of object detection (minimum size and transparency).}
   As may be seen in figure \ref{fig:1}, \texttt{object detection} is required
   before any other step in the main execution pipeline. Obviously, the object must
   be within the visual field of the camera. However, there may be a lower limit on
-  size of the object where it stops being detected. The system was tested on boxes
-  of different sizes to determine the lower limit of the object dimensions that
-  could be detected. The system was also tested on transparent objects to
-  determine if transparency would cause issues in object detection.
+  dimensions of the object where it stops being detected. The system was tested on
+  boxes of different sizes to determine this lower limit. The system was also
+  tested on transparent objects to determine if transparency would cause issues in
+  object detection.
 \item \textbf{Limits of grasping (object thickness, object height):}
   When grasping an object the system is conservative in how far the fingers
-  close. This is to prevent the arm from crushing the objects that it is
-  attempting to grasp. Additionally, the arm may be unable to grasp an object
-  which is too short. These limits were tested on boxes of different thicknesses
-  and heights to determine these limits.
+  close. This is to prevent the arm from crushing the objects that it is grasping.
+  Additionally, the arm may be unable to grasp an object which is too short. These
+  limits were tested on boxes of different thicknesses and heights to determine
+  possible limitations.
 \item \textbf{Limits of classification (various object dimensions).}
   Boxes were acquired outside of the initial testing data-set to test edge cases
   in object classification. This included boxes, that were tall and
   thin or short and fat.
 \item \textbf{Limits of classification with multiple independent objects.}
-  The images the classifier was trained on consisted of single boxes. When
-  multiple boxes are present in a scene it is possible that the image has the
-  boxes overlapping. Though this will likely function in the object detection
-  phase, it may cause issues in the angle classification phase. This was tested by
-  placing multiple boxes in the scene simultaneously to determine how the
-  classifier would react. Some tests involved placing boxes behind each other and
-  in other tests the boxes were separated with space between each other.
+  The images the classifier was trained on consisted of single boxes. Multiple
+  boxes being present in a scene may cause issues in angle classification. This
+  was tested by placing multiple boxes in the scene simultaneously to determine
+  how the classifier would react. Some tests involved placing boxes behind each
+  other and in other tests the boxes were separated with space between each other.
 \item \textbf{Limits of classification with stacked objects.}
   As with the previous limitation, stacked objects may pose a problem. The
   configurations that were considered were boxes that were stacked with the same
@@ -515,6 +513,7 @@ are as follows:
 The aim of these tests was to provide a sense of the operational boundaries of
 the system and to help guide future development.
 The specific tests and their outcomes are detailed in section \ref{sec:results}.
+\vspace{-0.6em}
 % This section should present the experimental setup and should to show that your
 % system is working correctly. You need to come up with a way to show that your
 % system is working correctly. It is recommended that you show the working of the
@@ -540,14 +539,12 @@ The specific tests and their outcomes are detailed in section \ref{sec:results}.
 % This section should present your results. Present your results in tables/graphs and write about what these results mean in detail.
 
 \subsection{Results for the Timing Experiments}
-In the real world environment the outcome was a more consistent than the virtual
-environment. For the real environment the runtime was approximately 44 seconds
-consistently with a variance of approximately 3 seconds based on the position of
-the box on the table. The results for these tests in the virtual environment
-were highly variable due to limitations of the simulation. It is of little
-real world significance and depends highly on the computational resources and
-the power of the hardware available to the simulation. These experiments have
-confirmed that the real world execution time is reasonable.
+For the real world environment the runtime was approximately 44 seconds with a
+variance of approximately 3 seconds based on the position of the box on the
+table. The results for these tests in the virtual environment were highly
+variable due to limitations of the simulation. It is of little real world
+significance and depends highly on the computational resources available. These
+experiments have confirmed that the real world execution time is reasonable.
 
 \subsection{Results for Classifier Experiments}
 The classifier pipelines consist of a preprocessing technique and a feature
@@ -733,29 +730,28 @@ be classified in terms of the orientation of the larger box.
 \label{sec:discussion}
 % \noindent {\bf [0.5 points]}
 The aim was to develop a pipeline allowing the Kinova MICO robot arm to grasp
-box objects from a table. To this end, the three major components of object
-detection, angle classification, and grasping were considered. Object detection
-was provided out of the box and its limits were tested. Small objects that were
-far away and transparent objects pose problems for object detection. However,
-for a majority of the real-world scenarios tested, the object detection
-succeeds. Angle classification entailed the selection of the best combination
-between a prepocessing step and a feature extraction step. It was determined,
-that grayscaled images when run through HOG feature extraction lead to the best
-results, resulting in 88.5\% accuracy on the testing data-set. The classifier
-however, has difficulty in handling tall, thin objects and has great difficulty
-classifying correctly in the simulation. The primary reason for this is apparent
-when considering figure \ref{fig:pipelines}.
+boxes from a table. This required object detection, angle classification, and
+grasping. Object detection was provided out of the box and its limits were
+tested. Small objects that were far away and transparent objects pose problems
+for object detection. However, for a majority of the real-world scenarios
+tested, the object detection succeeds. Angle classification entailed the
+selection of the best combination between a prepocessing step and a feature
+extraction step. It was found that grayscaled images when run through HOG
+feature extraction had the best results, with 88.5\% accuracy on the testing
+data-set. However, the classifier has difficulty in handling tall, thin objects
+and has great difficulty classifying correctly in the simulation. The reason for
+this is apparent when considering figure \ref{fig:pipelines}.
 
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.238\textwidth}
     \centering
-    \includegraphics[width=0.8\textwidth]{simulation_vs_real_world_base_case.png}
+    \includegraphics[width=0.74\textwidth]{simulation_vs_real_world_base_case.png}
     \caption{\label{fig:simulation_vs_real_world_0}\ang{0}}
   \end{subfigure}
   \begin{subfigure}[b]{0.238\textwidth}
     \centering
-    \includegraphics[width=0.8\textwidth]{simulation_vs_real_world_broken.png}
+    \includegraphics[width=0.74\textwidth]{simulation_vs_real_world_broken.png}
     \caption{\label{fig:simulation_vs_real_world_135}\ang{135}}
   \end{subfigure}
   \caption{\label{fig:pipelines} Processing Pipeline for Real-World vs.
@@ -764,15 +760,15 @@ when considering figure \ref{fig:pipelines}.
 
 In both figure \ref{fig:simulation_vs_real_world_0} and figure
 \ref{fig:simulation_vs_real_world_135}, the HOG features are far noisier in the
-real-world environment than the simulated environment. However, given that the
-classifier is trained on these real-world noisy features it is able to handle
-the classification correctly. Additionally, for the simulated box in figure
+real-world environment than the simulated environment. However, as the
+classifier has been trained on these noisy features it can handle the
+classification correctly. Additionally, for the simulated box in figure
 \ref{fig:simulation_vs_real_world_0} the classifier responds correctly. This is
 to be expected given that the shape of the resulting features are almost
 characteristic of that angle. However, when considering the simulated box for
-figure \ref{fig:simulation_vs_real_world_135}, the classifier is unable to
-classify correctly. This is evident as after grayscaling the shadow ends up as a
-very prominent feature. This distorts the extracted HOG features and causes the
+figure \ref{fig:simulation_vs_real_world_135}, the classifier classifies
+incorrectly. This is evident as after grayscaling the shadow ends up as a very
+prominent feature. This distorts the extracted HOG features and causes the
 classification to fail. This is less relevant than the real-world performance
 but did impact the development process.
 
@@ -799,7 +795,7 @@ events is required.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+% \addtolength{\textheight}{-16cm}   % This command serves to balance the column lengths
 % on the last page of the document manually. It shortens
 % the textheight of the last page by a suitable amount.
 % This command does not take effect until the next page
